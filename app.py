@@ -43,8 +43,27 @@ def ReceiveMessage():
 
 
 def GenerateMessage(text,number):
-    text="El usuario dijo :" +text + number
-    whatsappservice.SendMessageWhatsapp(text,number)
+    if "text" in text:
+        data=util.TextMessage("Text",number)
+    if "format" in text:
+        data=util.TextFormatMessage("Text",number)
+    if "image" in text:
+        data=util.ImageMessage(number)
+    if "video" in text:
+        data=util.VideoMessage(number)
+    if "audio" in text:
+        data=util.AudioMessage(number)
+    if "document" in text:
+        data=util.DocumentMessage(number)
+    if "location" in text:
+        data=util.LocationMessage(number)
+    if "button" in text:
+        data=util.ButtonMessage(number)
+    if "list" in text:
+        data=util.ListMessage(number)
+
+
+    whatsappservice.SendMessageWhatsapp(data)
 
 
 if __name__ == "__main__":
